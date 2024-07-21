@@ -1,5 +1,2 @@
-#include "ctorch.h"
+#include "stdbool.h"
 
-typedef struct{
-    uint num_layers;
-} NetworkHandle;
