@@ -26,3 +26,7 @@ void ctorch_floatvector_print(float* input_vector, int size) {
     }
     printf("%f]\n", input_vector[size - 1]);
 }
+
+float ctorch_util_sigmoid(float x){
+    return 1 / (1+expf(-x));
+}

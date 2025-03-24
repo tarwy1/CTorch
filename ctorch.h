@@ -1,30 +1,14 @@
 #include "stdbool.h"
 
 
-/*
-typedef struct {
-    int length;
-    int* value_array;
-} IntVector;
-typedef struct {
-    int length;
-    float* value_array;
-} FloatVector;
-typedef struct {
-    int* dimensions;
-    FloatVector* vector_array;
-} FloatTensor;
-*/
-
-float rand_weight_clip;
+extern float rand_weight_clip;
 
 struct Node;
 struct Layer;
 typedef struct Node {
     bool is_input;
     float activation;
-    float post_activation; // activation after act. function
-    //FloatVector* in_weights;
+    float post_activation;
     float *in_weights;
     struct Layer* in_layer;
     float bias;
@@ -53,9 +37,10 @@ typedef struct Layer {
 
 NetworkHandle* ctorch_network_create(int input_dim, int output_dim);
 
-void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation_function activation, bool is_input);
+void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation_function* activation, bool is_input);
 
 float ctorch_util_normal(float mu, float sigma);
+float ctorch_util_sigmoid(float x);
 
 void ctorch_activation_relu(LayerHandle* layer);
 
@@ -64,7 +49,7 @@ float* ctorch_loss_logcosh(NetworkHandle* network, float *labels);
 
 void ctorch_optimizer_sgd(NetworkHandle* network);
 
-activation_function ctorch_network_activation_create(char* activation);
+activation_function* ctorch_network_activation_create(char* activation);
 
 float* ctorch_network_forward_vector(NetworkHandle* network, float* input_vector);
 
