@@ -5,7 +5,7 @@
 #include "string.h"
 
 
-float ctorch_util_normal(float mu, float sigma) {
+float ct_util_normal(float mu, float sigma) {
     float f1;
     do {
         f1 = (float)rand() / (float)RAND_MAX;
@@ -19,7 +19,7 @@ float ctorch_util_normal(float mu, float sigma) {
     return mag;
 }
 
-void ctorch_floatvector_print(float* input_vector, int size) {
+void ct_floatvector_print(float* input_vector, int size) {
     printf("[");
     for (int i = 0; i < size - 1; i++) {
         printf("%f,", input_vector[i]);
@@ -27,6 +27,6 @@ void ctorch_floatvector_print(float* input_vector, int size) {
     printf("%f]\n", input_vector[size - 1]);
 }
 
-float ctorch_util_sigmoid(float x){
+float ct_util_sigmoid(float x){
     return 1 / (1+expf(-x));
 }

@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "ctorch.h": "c"
+        "ctorch.h": "c",
+        "stdlib.h": "c",
+        "math.h": "c"
     }
 }

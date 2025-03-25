@@ -7,18 +7,18 @@
 
 float rand_weight_clip = 2.0f;
 
-NetworkHandle* ctorch_network_create(int input_dim, int output_dim) {
+NetworkHandle* ct_network_create(int input_dim, int output_dim) {
     static NetworkHandle Network;
     Network.num_layers = 0;
     Network.input_dim = input_dim;
     Network.output_dim = output_dim;
     Network.layers = malloc(sizeof(LayerHandle) * 2);
-    ctorch_layer_dense_create(&Network, input_dim, ctorch_network_activation_create(""), true);
-    ctorch_layer_dense_create(&Network, output_dim, ctorch_network_activation_create(""), false);
+    ct_layer_dense_create(&Network, input_dim, ct_activation_create(""), true);
+    ct_layer_dense_create(&Network, output_dim, ct_activation_create(""), false);
     return &Network;
 }
 
-void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation_function* activation, bool is_input) {
+void ct_layer_dense_create(NetworkHandle* network, int num_nodes, activation_function* activation, bool is_input) {
     static struct Layer layer;
     layer.is_dense = true;
     layer.num_nodes = num_nodes;
@@ -36,7 +36,7 @@ void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation
                 layer.nodes[i].weight_grads = malloc(network->layers[network->num_layers - 2].num_nodes * sizeof(float));
                 layer.nodes[i].in_layer = &network->layers[network->num_layers - 2];
                 for (int j = 0; j < network->layers[network->num_layers - 2].num_nodes; j++) {
-                    layer.nodes[i].in_weights[j] = ctorch_util_normal(0.0f, 2 / (float)network->layers[network->num_layers - 2].num_nodes);
+                    layer.nodes[i].in_weights[j] = ct_util_normal(0.0f, 2 / (float)network->layers[network->num_layers - 2].num_nodes);
                 }
             }
             else {
@@ -44,7 +44,7 @@ void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation
                 layer.nodes[i].weight_grads = malloc(network->layers[network->num_layers - 1].num_nodes * sizeof(float));
                 layer.nodes[i].in_layer = &network->layers[network->num_layers - 1];
                 for (int j = 0; j < network->layers[network->num_layers - 1].num_nodes; j++) {
-                    layer.nodes[i].in_weights[j] = ctorch_util_normal(0.0f, 2 / (float)network->layers[network->num_layers - 1].num_nodes);
+                    layer.nodes[i].in_weights[j] = ct_util_normal(0.0f, 2 / (float)network->layers[network->num_layers - 1].num_nodes);
                 }
             }
             
@@ -71,7 +71,7 @@ void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation
             memset(network->layers[network->num_layers].nodes[i].in_weights, 0, layer.num_nodes * sizeof(float));
             memset(network->layers[network->num_layers].nodes[i].weight_grads, 0, layer.num_nodes * sizeof(float));
             for (int j = 0; j < layer.num_nodes; j++) {
-                network->layers[network->num_layers].nodes[i].in_weights[j] = ctorch_util_normal(0.0f, 2.0f / (float)(layer.num_nodes));
+                network->layers[network->num_layers].nodes[i].in_weights[j] = ct_util_normal(0.0f, 2.0f / (float)(layer.num_nodes));
             }
         }
         network->layers[network->num_layers - 1] = layer;
@@ -82,7 +82,7 @@ void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation
     network->num_layers += 1;
 }
 
-float* ctorch_network_forward_vector(NetworkHandle* network, float* input_vector) {
+float* ct_network_forward_vector(NetworkHandle* network, float* input_vector) {
     static float *output;
     output = malloc(network->output_dim * sizeof(float));
     if (network->layers[0].is_dense) {

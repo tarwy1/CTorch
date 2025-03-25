@@ -1,6 +1,5 @@
 #include "stdbool.h"
 
-
 extern float rand_weight_clip;
 
 struct Node;
@@ -35,45 +34,45 @@ typedef struct Layer {
     activation_function activation;
 } LayerHandle;
 
-NetworkHandle* ctorch_network_create(int input_dim, int output_dim);
+NetworkHandle* ct_network_create(int input_dim, int output_dim);
 
-void ctorch_layer_dense_create(NetworkHandle* network, int num_nodes, activation_function* activation, bool is_input);
+void ct_layer_dense_create(NetworkHandle* network, int num_nodes, activation_function* activation, bool is_input);
 
-float ctorch_util_normal(float mu, float sigma);
-float ctorch_util_sigmoid(float x);
+float ct_util_normal(float mu, float sigma);
+float ct_util_sigmoid(float x);
 
-void ctorch_activation_relu(LayerHandle* layer);
+void ct_activation_relu(LayerHandle* layer);
 
-float* ctorch_loss_mse(NetworkHandle* network, float *labels);
-float* ctorch_loss_logcosh(NetworkHandle* network, float *labels);
+float* ct_loss_mse(NetworkHandle* network, float *labels);
+float* ct_loss_logcosh(NetworkHandle* network, float *labels);
 
-void ctorch_optimizer_sgd(NetworkHandle* network);
+void ct_optimizer_sgd(NetworkHandle* network);
 
-activation_function* ctorch_network_activation_create(char* activation);
+activation_function* ct_activation_create(char* activation);
 
-float* ctorch_network_forward_vector(NetworkHandle* network, float* input_vector);
+float* ct_network_forward_vector(NetworkHandle* network, float* input_vector);
 
-void ctorch_floatvector_print(float* input_vector, int size);
+void ct_floatvector_print(float* input_vector, int size);
 
-loss_function* ctorch_network_loss_create(char* loss);
+loss_function* ct_network_loss_create(char* loss);
 
-optimizer_function* ctorch_optimizer_create(char* optimizer);
+optimizer_function* ct_optimizer_create(char* optimizer);
 
-void ctorch_optimizer_grad();
+void ct_optimizer_grad();
 
 /*
 
-network* ctorch_network_copy(network* network)
+network* ct_network_copy(network* network)
 
-void ctorch_network_train_tensor(optimizer *optim, loss_function *loss, floattensor *input_tensor, floattensor *label_tensor)
+void ct_network_train_tensor(optimizer *optim, loss_function *loss, floattensor *input_tensor, floattensor *label_tensor)
 
-int ctorch_network_save(network* network, char *path)
-network* ctorch_network_load(char *path)
+int ct_network_save(network* network, char *path)
+network* ct_network_load(char *path)
 
 
-layer* ctorch_layer_conv2D_create()
+layer* ct_layer_conv2D_create()
 
-optimizer* ctorch_optimizer_adam_create(float lr, float B1, float B2)
-optimizer* ctorch_optimizer_sgd_create(float lr)
+optimizer* ct_optimizer_adam_create(float lr, float B1, float B2)
+optimizer* ct_optimizer_sgd_create(float lr)
 
 */

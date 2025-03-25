@@ -3,7 +3,7 @@
 #include "string.h"
 #include "stdlib.h"
 
-float* ctorch_loss_mse(NetworkHandle* network, float* labels) {
+float* ct_loss_mse(NetworkHandle* network, float* labels) {
     static float *loss;
     loss = malloc(network->output_dim * sizeof(float));
     for (int i = 0; i < network->output_dim; i++) {
@@ -12,7 +12,7 @@ float* ctorch_loss_mse(NetworkHandle* network, float* labels) {
     return loss;
 }
 
-float* ctorch_loss_logcosh(NetworkHandle* network, float* labels) {
+float* ct_loss_logcosh(NetworkHandle* network, float* labels) {
     static float *loss;
     loss = malloc(network->output_dim * sizeof(float));
     for (int i = 0; i < network->output_dim; i++) {
@@ -21,22 +21,18 @@ float* ctorch_loss_logcosh(NetworkHandle* network, float* labels) {
     return loss;
 }
 
-loss_function* ctorch_network_loss_create(char* loss) {
+loss_function* ct_network_loss_create(char* loss) {
     static loss_function loss_func;
     if (strcmp(loss, "mse") == 0) {
-        loss_func = ctorch_loss_mse;
+        loss_func = ct_loss_mse;
     }
     else if (strcmp(loss, "logcosh") == 0) {
-        loss_func = ctorch_loss_logcosh;
+        loss_func = ct_loss_logcosh;
     }
     return &loss_func;
 }
 
-void ctorch_optimizer_grad() {
-
-}
-
-void network_optimizer_sgd(NetworkHandle* network) {
+void ct_optimizer_sgd(NetworkHandle* network) {
     /*
     forward prop
     calculate loss
@@ -46,10 +42,10 @@ void network_optimizer_sgd(NetworkHandle* network) {
     */
 }
 
-optimizer_function* ctorch_optimizer_create(char* optimizer) {
+optimizer_function* ct_optimizer_create(char* optimizer) {
     static optimizer_function opt_func;
     if (strcmp(optimizer, "sgd") == 0) {
-        opt_func = network_optimizer_sgd;
+        opt_func = ct_optimizer_sgd;
     }
     return &opt_func;
 }
