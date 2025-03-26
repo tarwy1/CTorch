@@ -27,6 +27,18 @@ void ct_floatvector_print(float* input_vector, int size) {
     printf("%f]\n", input_vector[size - 1]);
 }
 
+void ct_floattensor2d_print(float** input_tensor, int* size){
+    printf("[");
+    for(int i = 0; i < size[0]; i++){
+        printf("[");
+        for(int j = 0; j < size[1]-1; j++){
+            printf("%f,", input_tensor[i][j]);
+        }
+        printf("%f]\n", input_tensor[i][size[1]-1]);
+    }
+    printf("]\n");
+}
+
 float ct_util_sigmoid(float x){
     return 1 / (1+expf(-x));
 }
